@@ -5,7 +5,7 @@ const app = express();
 
 const pool = mysql.createPool({
     host: "localhost",
-    user: "root",
+    user: "foo",
     password: "PASSWORD",
     database: "reecipe_box"
 });
