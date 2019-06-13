@@ -11,9 +11,9 @@ const pool = mysql.createPool({
    database: process.env.DB_NAME
 });
 
-app.get("/", (req, res) => res.send("Hello World!"));
+
 app.get("/api/recipe", (req, res) => {
-    pool.query("SELECT recipe_id method FROM recipe",(error ,rows) => {
+    pool.query("SELECT recipe_id name FROM recipe",(error ,rows) => {
         if (error){
             return res.status(500).json({ error });
 
@@ -24,5 +24,23 @@ app.get("/api/recipe", (req, res) => {
     });
 });
 
+app.get("/api/recipe/home",(reg, res) => {
+    pool.query(
+        "SELECT r.recipe_id,r.name,r.image,u.name FROM recipe as r join user as u;",
+        (error,rows) => {
+            if (error){
+                return res.status(500).json({error});
+            }
+
+            res.json(rows);
+            
+
+        }
+    );
+});
+
+
+        
+   
 app.listen(9000, () => console.log("App listening on port 9000"));
 
