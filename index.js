@@ -39,7 +39,33 @@ app.get("/api/recipe/home",(reg, res) => {
     );
 });
 
+app.get("/api/recipe/add",(reg, res) => {
+    pool.query(
+        "SELECT r.name,r.ingredients,r.method,r.image,u.name FROM recipe as r join user as u;",
+        (error,rows) => {
+            if (error){
+                return res.status(500).json({error});
 
+            }
+
+            res.json(rows);
+        }
+    );
+});
+
+app.get("/api/recipe/show",(reg,res) => {
+    pool.query(
+        "SELECT r.name,r.image,r.ingredients,r.method FROM recipe as r;",
+        (error,rows) => {
+            if (error){
+                return res.status(500).json({error});
+
+            }
+
+            res.json(rows);
+        }
+    );
+});
         
    
 app.listen(9000, () => console.log("App listening on port 9000"));
