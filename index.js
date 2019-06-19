@@ -13,7 +13,7 @@ const pool = mysql.createPool({
 
 
 app.get("/api/recipe", (req, res) => {
-    pool.query("SELECT recipe_id name FROM recipe",(error ,rows) => {
+    pool.query("SELECT recipe_id recipe_name FROM recipe",(error ,rows) => {
         if (error){
             return res.status(500).json({ error });
 
@@ -26,7 +26,7 @@ app.get("/api/recipe", (req, res) => {
 
 app.get("/api/recipe/home",(reg, res) => {
     pool.query(
-        "SELECT r.recipe_id,r.name,r.image,u.name FROM recipe as r join user as u;",
+        "SELECT r.recipe_id,r.recipe_name,r.image,u.name FROM recipe as r join user as u;",
         (error,rows) => {
             if (error){
                 return res.status(500).json({error});
@@ -41,7 +41,7 @@ app.get("/api/recipe/home",(reg, res) => {
 
 app.get("/api/recipe/add",(reg, res) => {
     pool.query(
-        "SELECT r.name,r.ingredients,r.method,r.image,u.name FROM recipe as r join user as u;",
+        "SELECT r.recipe_name,r.ingredients,r.method,r.image,u.name FROM recipe as r join user as u;",
         (error,rows) => {
             if (error){
                 return res.status(500).json({error});
@@ -55,7 +55,7 @@ app.get("/api/recipe/add",(reg, res) => {
 
 app.get("/api/recipe/show",(reg,res) => {
     pool.query(
-        "SELECT r.name,r.image,r.ingredients,r.method FROM recipe as r;",
+        "SELECT r.recipe_name,image,r.ingredients,r.method FROM recipe as r;",
         (error,rows) => {
             if (error){
                 return res.status(500).json({error});
