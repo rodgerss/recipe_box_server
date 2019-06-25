@@ -26,7 +26,10 @@ app.get("/api/recipe", (req, res) => {
 
 app.get("/api/recipe/home",(reg, res) => {
     pool.query(
-        "SELECT r.recipe_id,r.recipe_name,r.image,u.name FROM recipe as r join user as u;",
+        "SELECT r.recipe_id,r.recipe_name,r.image,u.name FROM recipe as r join user as u WHERE user_id = ?",
+        [reg.params.id],
+        
+
         (error,rows) => {
             if (error){
                 return res.status(500).json({error});
@@ -66,7 +69,26 @@ app.get("/api/recipe/show",(reg,res) => {
         }
     );
 });
-        
+app.post("/reecipe_box", (req, res) => {
+    const recipe = req.body;
+
+    if (!recipe.name) {
+        return res.status(400).json({ error: "Invalid payload" });
+    }
+
+    pool.query(
+        "INSERT INTO recipe (name) VALUES (?)",
+        [recipe.name],
+        (error, results) => {
+            if (error) {
+                return res.status(500).json({ error });
+            }
+
+            res.json(results.insertId);
+        }
+    );
+});
+
    
 app.listen(9000, () => console.log("App listening on port 9000"));
 
