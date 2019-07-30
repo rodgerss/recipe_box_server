@@ -1,36 +1,38 @@
 import React from "react";
 import axios from "axios";
 import Recipe from "./Recipe";
+import Loading from "./Loading";
+import Error from "./Error"
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            home: [],
+            recipes: [],
             loading: false,
             error:  false
     };
 }
 componentDidMount() {
-    this.fetchhome();
+    this.fetchRecipes();
 
 
 }
-fetchhome(){
+fetchRecipes(){
     this.setState({ loading: true,error: false });
     
     axios
-    .get("http://localhost:9000/api/recipe")
+    .get("/api/recipe/home")
     .then(response => {
         this.setState({
-            home: response.data,
+            recipes: response.data,
             loading: false,
             error: false
         });
     })
     .catch(error => {
         this.setState({
-            home: [],
+            recipes: [],
             loading: false,
             error:false
 
@@ -40,11 +42,23 @@ fetchhome(){
 }
 
 render(){
-    const { home } = this.state;
+    const { recipes, loading, error } = this.state;
+
+    if (loading) {
+        return <Loading />
+
+    }
+
+    if (error){
+        return <Error />
+    }
 
     return (
         <div className="rcls-container">
             <div className="rcls-recipe">
+                {recipes.map((r, index) => (
+                    <Recipe key={index} recipe={r} />
+                ))}
             </div>  
         </div> 
     );

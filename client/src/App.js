@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router } from "@reach/router"
-import Recipe_box from "./Home"
 import Home from "./Home"
 import Navbar from './Navbar';
 import './App.css';
@@ -15,8 +14,8 @@ function App() {
             </header>
             <main className="rcls-main">
                  <Router>
-                    <Home path="/recipe/home" />
-                    <homedetails path="/recipe/home:id" />
+                    <Home path="/" />
+                    {/* <HomeDetails path="/recipe/:id" /> */}
                   </Router>
              
             </main>
