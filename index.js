@@ -26,7 +26,7 @@ app.get("/api/recipe", (req, res) => {
 
 app.get("/api/recipe/home",(reg, res) => {
     pool.query(
-        "SELECT r.recipe_id,r.recipe_name,r.image,u.name FROM recipe as r join user as u WHERE user_id = ?",
+        "SELECT r.recipe_id,r.recipe_name,r.image,u.name FROM recipe as r join user as u ",
         [reg.params.id],
         
 
