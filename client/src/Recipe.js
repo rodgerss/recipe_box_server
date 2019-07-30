@@ -1,7 +1,7 @@
 import React from "react";
 
-function Recipe({home}){
-    const { recipe_id, recipe_name, image, name } = home;
+function Recipe({recipe}){
+    const { recipe_id, recipe_name, image, name } = recipe;
     
     return (
         <div className="rcls-recipe">
@@ -11,7 +11,7 @@ function Recipe({home}){
                 <p className="rcls-name">{name}</p>
             </div> 
             <div className="rcls-recipe-footer">
-                <a href={`/recipe/&{id}`} className="rcls-btn rcls-btn-name">
+                <a href={`/recipe/${recipe_id}`} className="rcls-btn rcls-btn-name">
                     See recipes
                 </a>
             </div>

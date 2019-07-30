@@ -6,11 +6,8 @@ function NavBar() {
         <div className="rcls-container">
             <nav className="rcls-nav">
                 <span className="rcls-title">Recipe_box</span>
-
-                
-                <Link to="/recipe">Recipe</Link>
+                <Link to="/">Recipe</Link>
                 <Link  to="/user">User</Link>
-                
             </nav>
         </div>
     );
