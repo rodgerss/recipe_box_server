@@ -43,7 +43,7 @@ app.get("/api/recipe/home",(reg, res) => {
 });
 app.get("/api/recipe/home:id", (req, res) => {
     pool.query(
-        "SELECT recipe_id,recipe_name, image FROM recipe WHERE id = ?",
+        "SELECT recipe_id,recipe_name,ingredients,method, image FROM recipe WHERE recipe_id = 1",
         [req.params.id],
         (error, rows) => {
             if (error) {

@@ -12,7 +12,7 @@ function Recipe({recipe}){
             </div> 
             <div className="rcls-recipe-footer">
                 <a href={`/recipe/${recipe_id}`} className="rcls-btn rcls-btn-name">
-                    See recipes
+                    Show recipe
                 </a>
             </div>
         </div>   
