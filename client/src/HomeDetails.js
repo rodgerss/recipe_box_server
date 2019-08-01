@@ -90,7 +90,7 @@ class HomeDetails extends React.Component {
                               <h2>{recipe_name}</h2>
                               <p>{ingredients}</p>
                               <p>
-                                  <span>method</span>: {method}
+                                  <span>{method}</span>: {method}
                                </p>
                             </div>
                         </div>
