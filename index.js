@@ -10,6 +10,17 @@ const pool = mysql.createPool({
    password: process.env.DB_PASS,
    database: process.env.DB_NAME
 });
+app.get("/api/user", (req, res) => {
+    pool.query("SELECT r.recipe_name,r.ingredients,r.method,r.image,u.name FROM recipe as r join user as u;",(error ,rows) => {
+        if (error){
+            return res.status(500).json({ error });
+
+        }
+
+        res.json(rows);
+
+    });
+});
 
 
 app.get("/api/recipe", (req, res) => {
@@ -88,7 +99,7 @@ app.get("/api/recipe/add",(reg, res) => {
 
 app.get("/api/recipe/add:id", (req, res) => {
     pool.query(
-        "SELECT id, name, ingredients,method WHERE id = ?",
+        "SELECT id, name, ingredients,method WHERE recipe_id = ?",
         [req.params.id],
         (error, rows) => {
             if (error) {
@@ -134,7 +145,7 @@ app.get("/api/recipe/show",(reg,res) => {
 });
 app.get("/api/recipe/show:id", (req, res) => {
     pool.query(
-        "SELECT image,ingredients,method FROM recipe WHERE id = ?",
+        "SELECT image,ingredients,method FROM recipe WHERE recipe_id = ?",
         [req.params.id],
         (error, rows) => {
             if (error) {
@@ -173,7 +184,7 @@ app.put("api/user/:id", (req, res) => {
     }
 
     pool.query(
-        "UPDATE user SET name = ? WHERE id = ?",
+        "UPDATE user SET name = ? WHERE user_id  = ?",
         [user.name, req.params.id],
         (error, results) => {
             if (error) {
@@ -186,7 +197,7 @@ app.put("api/user/:id", (req, res) => {
 });
 app.delete("api/user/:id", (req, res) => {
     pool.query(
-        "DELETE FROM recipe WHERE id = ?",
+        "DELETE FROM user WHERE user_id = ?",
         [req.params.id],
         (error, results) => {
             if (error) {
@@ -240,7 +251,7 @@ app.put("/api/recipe/:id", (req, res) => {
 
 app.delete("/api/recipe/:id", (req, res) => {
     pool.query(
-        "DELETE FROM recipe WHERE id = ?",
+        "DELETE FROM recipe WHERE recipe_id = ?",
         [req.params.id],
         (error, results) => {
             if (error) {
