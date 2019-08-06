@@ -8,6 +8,7 @@ function  RecipeForm({
     image,
     formSubmitting,
     ValidationErrors,
+    validationErrors,
     formSuccess,
     formError,
     handleChange,
@@ -45,14 +46,14 @@ function  RecipeForm({
                            type="text"
                            name="recipe_name"
                            className={
-                               ValidationErrors.recipe_name ? "has-error" :""
+                               validationErrors.recipe_name ? "has-error" :""
                            }
                            autoComplete="off"
                            value={recipe_name}
                            onChange={handleChange}
                            disabled={formSubmitting}
                         />
-                           {ValidationErrors.recipe_name &&(
+                           {validationErrors.recipe_name &&(
                                <span className="rcls-form-input-error">
                                    {ValidationErrors.recipe_name}
                                 </span>
@@ -68,7 +69,7 @@ function  RecipeForm({
                        type="text"
                        name="ingredients"
                        className={
-                           ValidationErrors.ingredients ? "has-error" : ""
+                           validationErrors.ingredients ? "has-error" : ""
 
 
                        }
@@ -77,9 +78,9 @@ function  RecipeForm({
                        onChange={handleChange}
                        disabled={formSubmitting}
                     />
-                    {ValidationErrors.ingredients && (
+                    {validationErrors.ingredients && (
                         <span className="rcls-form-input-error">
-                            {ValidationErrors.ingredients}
+                            {validationErrors.ingredients}
                            </span> 
                     )}
                 </div>
@@ -91,7 +92,7 @@ function  RecipeForm({
                        type="text"
                        name="method"
                        className={
-                           ValidationErrors.method ? "has-error" : ""
+                           validationErrors.method ? "has-error" : ""
 
 
                        }
@@ -100,9 +101,9 @@ function  RecipeForm({
                        onChange={handleChange}
                        disabled={formSubmitting}
                     />
-                    {ValidationErrors.method && (
+                    {validationErrors.method && (
                         <span className="rcls-form-input-error">
-                            {ValidationErrors.method}
+                            {validationErrors.method}
                            </span> 
                     )}
                 </div>
@@ -114,7 +115,7 @@ function  RecipeForm({
                        type="text"
                        name="image"
                        className={
-                           ValidationErrors.image ? "has-error" : ""
+                           validationErrors.image ? "has-error" : ""
 
 
                        }
@@ -123,9 +124,9 @@ function  RecipeForm({
                        onChange={handleChange}
                        disabled={formSubmitting}
                     />
-                    {ValidationErrors.image && (
+                    {validationErrors.image && (
                         <span className="rcls-form-input-error">
-                            {ValidationErrors.image}
+                            {validationErrors.image}
                            </span> 
                     )}
                 </div>
