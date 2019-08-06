@@ -24,7 +24,7 @@ app.get("/api/user", (req, res) => {
 
 
 app.get("/api/recipe", (req, res) => {
-    pool.query("SELECT recipe_id recipe_name FROM recipe",(error ,rows) => {
+    pool.query("SELECT * FROM recipe",(error ,rows) => {
         if (error){
             return res.status(500).json({ error });
 
