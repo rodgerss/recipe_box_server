@@ -1,6 +1,7 @@
 import React from "react";
 import axios from  "axios";
 import RecipeForm from "./RecipeForm";
+import RecipeTable from "./RecipeTable";
 
 class RecipeAdmin extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class RecipeAdmin extends React.Component {
             validationErrors: {},
             formSuccess: false,
             formError: false,
-            movies: [],
+            recipes: [],
             tableLoading: false,
             tableError: false,
             deleteSuccess: false
@@ -29,6 +30,29 @@ class RecipeAdmin extends React.Component {
     componentDidMount( ){
         this.fetchRecipes();
 
+    }
+    fetchRecipes() {
+        this.setState({ tableLoading: true, tableError: false });
+
+        axios
+            .get("/api/recipe")
+            .then(response => {
+                this.setState({
+                    recipes: response.data.map(data => ({
+                        ...data,
+                        
+                    })),
+                    tableLoading: false,
+                    tableError: false
+                });
+            })
+            .catch(error => {
+                this.setState({
+                    recipes: [],
+                    tableLoading: false,
+                    tableError: true
+                });
+            });
     }
      
     resetFormState() {
@@ -208,7 +232,40 @@ handleEditRecipe(recipe){
             editing: true
 
         });
-    }}
+    };
+}
+
+handleDeleteRecipe(recipe, recipes){
+    return () => {
+        const {recipe_id, recipe_name} =recipe;
+
+        
+
+        if (window.confirm(`Are you sure you want to delete  ' ${recipe_name}'?`)) {
+            axios
+                .delete(`/api/recipe/${recipe_id}`)
+                .then(responce => {
+                    const index = recipe.findIndex(r =>recipe_id  );
+
+                    this.setState({
+                        recipes: [
+                            ...recipes.slice(0, index),
+                            ...recipes.slice(index + 1)
+                        ],
+                        deleteSuccess: true,
+                        tableError: false,
+                    });
+                })
+
+                .catch(error => {
+                    this.setState({
+                        deleteSuccess: false,
+                        tableError: true
+                    });
+                });
+        }
+    };
+}
 
 
 render () {
@@ -222,6 +279,13 @@ render () {
         validationErrors,
         formSuccess,
         formError,
+        recipes,
+        tableLoading,
+        tableError,
+        //deleteSuccess,
+        onDeleteRecipe,
+        onEditRecipe
+
         
 
 
@@ -243,7 +307,13 @@ render () {
                 resetFormState={this.resetFormState}
                 handleSubmit={this.handleSubmit}
             />
-            
+            <RecipeTable
+               recipes={recipes}
+               tableLoading={tableLoading}
+               tableError={tableError}
+               onEditRecipe={this.handleEditRecipe}
+               onDeleteRecipe={this.handleDeleteRecipe}
+            />
         </div>
     );
 
